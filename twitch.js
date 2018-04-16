@@ -73,7 +73,7 @@ function loadBubbleChart(){
 		                .append("g")
 		                .attr("transform", "translate(0,0)");
 
-		    let radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,500])
+		    let radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,900])
 		    // formats numbers by rounding down. ex 6.2 => 6
 			let format = d3.format(",d");
 
@@ -87,7 +87,7 @@ function loadBubbleChart(){
 				.force("x", d3.forceX(width/2).strength(0.05))
 				.force("y", d3.forceY(height/2).strength(0.05))
 				.force("collide", d3.forceCollide(function(d){
-					return radiusScale(d.viewers / 10) + 1;
+					return radiusScale(d.viewers / 10)
 				}));
 
 			// chooses color scheme for rendering bubbles. more color schemes available.
@@ -108,15 +108,39 @@ function loadBubbleChart(){
 			    	console.log(d);
 			    })
 
+
 			let texts = svgContainer.selectAll(null)
-			    .data(dataPoints)
-			    .enter()
-			    .append('text')
-			    .text(function(d){
-			    	return d.game.name
-			    })
-			    .attr('color', 'black')
-			    .attr('font-size', 15)
+				.data(dataPoints)
+				.enter()
+				.append("g")
+
+			texts.append("text")
+				.attr("text-anchor", "middle")
+				.each(function(d){
+					let arr = d.game.name.split(" ");
+					d3.select(this).selectAll(null)
+						.data(arr)
+						.enter()
+						.append("tspan")
+						.attr("text-anchor", "middle")
+						.attr("x", 0)
+						.attr("dy", function(d, i){
+							return "1.2em"
+						})
+					.text(String)
+
+				});
+
+			// let texts = svgContainer.selectAll(null)
+			//     .data(dataPoints)
+			//     .enter()
+			//     .
+			//     .append('text')
+			//     .attr('color', 'black')
+			//     .attr("text-anchor", "middle")
+			//     .text(function(d){
+			//     	return d.game.name
+			//     });
 
 
 
@@ -133,13 +157,9 @@ function loadBubbleChart(){
 						return d.y;
 					})
 
-				texts
-					.attr("x", function(d){
-						return d.x
-					})
-					.attr("y", function(d){
-						return d.y
-					})
+				texts.attr("transform", function(d) {
+				    return "translate(" + d.x + "," + d.y + ")"
+				  })
 			}	
 		}
 	});
