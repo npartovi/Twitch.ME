@@ -80,12 +80,10 @@ function loadBubbleChart(){
 			// the simulation is a collection of forces
 			// about where we want our circles to go
 			// and how we want our circles to interact
-			//STEP ONE: get them to the middle
-			// STEP TWO: dont have them collide
-			// force collide allows for circles to collide with each other
 			let simulation = d3.forceSimulation()
 				.force("x", d3.forceX(width/2).strength(0.05))
 				.force("y", d3.forceY(height/2).strength(0.05))
+				// D3 force collide, prevents circles from overlapping
 				.force("collide", d3.forceCollide(function(d){
 					return radiusScale(d.viewers / 10)
 				}));

@@ -12,7 +12,7 @@ popular streamer and whatever else the twitch API will let me grab. All data wil
 
 - [ ] Display table of top 30 games(# of games can be changes)
 - [ ] Display D3 bubble chart of those 30 games
-- [ ] Each bubble will have a pop up displaying relevant information of each game
+- [ ] Hover over effects for D3 shapes displaying information
 - [ ] Display D3 Barchart, possibly might replace with another chart
 - [ ] Clicking on anygame from the table will load a summary of that particular game only
 
