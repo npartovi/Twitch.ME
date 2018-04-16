@@ -1,7 +1,7 @@
 const gamesArray = [];
 
 
-function summaryTest(){
+function loadSummaryTest(){
 	$.ajax({
 		url: "https://api.twitch.tv/kraken/streams/summary",
 		method: "GET",
@@ -12,13 +12,11 @@ function summaryTest(){
 			console.log(data)
 		}
 
-	})
+	});
 }
 
 
-
-
-function loadTopLine(){
+function loadTableData(){
 
 	$.ajax({
 		type: 'GET',
@@ -51,7 +49,7 @@ function loadTopLine(){
 }
 
 
-function bubbleChart(){
+function loadBubbleChart(){
 
 	$.ajax({
 		type: "GET",
@@ -68,23 +66,24 @@ function bubbleChart(){
 			let height = 960;
 
 			// selects the "graph" div on the html page and appends a svg container
-		    var svgContainer = graphSelection
+		    let svgContainer = graphSelection
 		    			.append("svg")
 		                .attr("width", width)
 		                .attr("height", height)
 		                .append("g")
 		                .attr("transform", "translate(0,0)");
 
-		    var radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,500])
+		    let radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,500])
 		    // formats numbers by rounding down. ex 6.2 => 6
-			var format = d3.format(",d");
+			let format = d3.format(",d");
 
 			// the simulation is a collection of forces
 			// about where we want our circles to go
 			// and how we want our circles to interact
 			//STEP ONE: get them to the middle
 			// STEP TWO: dont have them collide
-			var simulation = d3.forceSimulation()
+			// force collide allows for circles to collide with each other
+			let simulation = d3.forceSimulation()
 				.force("x", d3.forceX(width/2).strength(0.05))
 				.force("y", d3.forceY(height/2).strength(0.05))
 				.force("collide", d3.forceCollide(function(d){
@@ -92,10 +91,10 @@ function bubbleChart(){
 				}));
 
 			// chooses color scheme for rendering bubbles. more color schemes available.
-			var color = d3.scaleOrdinal(d3.schemeCategory20c);
+			let color = d3.scaleOrdinal(d3.schemeCategory20c);
 
 
-			var circles = svgContainer.selectAll(".node")
+			let circles = svgContainer.selectAll(".node")
 			    .data(dataPoints)
 			    .enter().append("circle")
 			    .attr("class", "games")
@@ -107,7 +106,18 @@ function bubbleChart(){
 			    })
 			    .on("click", function(d){
 			    	console.log(d);
-			    });
+			    })
+
+			let texts = svgContainer.selectAll(null)
+			    .data(dataPoints)
+			    .enter()
+			    .append('text')
+			    .text(function(d){
+			    	return d.game.name
+			    })
+			    .attr('color', 'black')
+			    .attr('font-size', 15)
+
 
 
 			simulation.nodes(dataPoints)
@@ -122,11 +132,19 @@ function bubbleChart(){
 					.attr("cy", function(d){
 						return d.y;
 					})
+
+				texts
+					.attr("x", function(d){
+						return d.x
+					})
+					.attr("y", function(d){
+						return d.y
+					})
 			}	
 		}
 	});
 }
 
-loadTopLine();
-bubbleChart();
-summaryTest();
+loadTableData();
+loadBubbleChart();
+loadSummaryTest();
