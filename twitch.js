@@ -9,7 +9,7 @@ function loadSummaryTest(){
 			'Client-ID': 'j04u3arfwaaxamhkczfl48egoeh3ncn'
 		},
 		success: function(data){
-			console.log(data)
+			// console.log(data)
 		}
 
 	});
@@ -60,10 +60,14 @@ function loadBubbleChart(){
 		success: function(data){
 
 			let dataPoints = data.top;
+			console.log(dataPoints)
 
 			let graphSelection = d3.select(".graph")
 			let width = 960;
 			let height = 960;
+
+
+
 
 			// selects the "graph" div on the html page and appends a svg container
 		    let svgContainer = graphSelection
@@ -73,6 +77,7 @@ function loadBubbleChart(){
 		                .append("g")
 		                .attr("transform", "translate(0,0)");
 
+
 		    let radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,900])
 		    // formats numbers by rounding down. ex 6.2 => 6
 			let format = d3.format(",d");
@@ -80,16 +85,35 @@ function loadBubbleChart(){
 			// the simulation is a collection of forces
 			// about where we want our circles to go
 			// and how we want our circles to interact
+
+
+			var forceXSeperate = d3.forceX(function(d){
+				if (d.game.viewers > 10000){
+					return 150
+				}else {
+					return 750
+				}
+			}).strength(0.05);
+
+			var forceXCombine = d3.forceX(width / 2 ).strength(0.05);
+
+
+			var forceY = d3.forceY(function(d){
+				return height / 2;
+			}).strength(0.05);
+
+			var forceCollide = d3.forceCollide(function(d){
+				return radiusScale(d.viewers / 10)
+			})
+
 			let simulation = d3.forceSimulation()
-				.force("x", d3.forceX(width/2).strength(0.05))
-				.force("y", d3.forceY(height/2).strength(0.05))
-				// D3 force collide, prevents circles from overlapping
-				.force("collide", d3.forceCollide(function(d){
-					return radiusScale(d.viewers / 10)
-				}));
+				.force("x", forceXCombine )
+				.force("y", forceY )
+				.force("collide", forceCollide)
+				
 
 			// chooses color scheme for rendering bubbles. more color schemes available.
-			let color = d3.scaleOrdinal(d3.schemeCategory20c);
+			let color = d3.scaleOrdinal(d3.schemeCategory10);
 
 
 			let circles = svgContainer.selectAll(".node")
@@ -105,6 +129,21 @@ function loadBubbleChart(){
 			    .on("click", function(d){
 			    	console.log(d);
 			    })
+
+
+			d3.select("#decade").on("click", function(){
+				simulation
+					.force("x", forceXSeperate)
+					.alphaTarget(0.5)
+					.restart()
+			})
+
+			d3.select("#combine").on("click", function(){
+				simulation
+					.force("x", forceXCombine)
+					.alphaTarget(0.05)
+					.restart()
+			})
 
 
 			let texts = svgContainer.selectAll(null)
@@ -128,19 +167,6 @@ function loadBubbleChart(){
 					.text(String)
 
 				});
-
-			// let texts = svgContainer.selectAll(null)
-			//     .data(dataPoints)
-			//     .enter()
-			//     .
-			//     .append('text')
-			//     .attr('color', 'black')
-			//     .attr("text-anchor", "middle")
-			//     .text(function(d){
-			//     	return d.game.name
-			//     });
-
-
 
 			simulation.nodes(dataPoints)
 				.on('tick', ticked);
