@@ -1,0 +1,23 @@
+body {
+	background: #4b377c;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1200px;
+    color: white;
+}
+
+
+.inner-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+th, td {
+    border-bottom: 1px solid white;
+    padding-left: 20px;
+    padding-bottom: 6px;
+    color: white;
+    text-align: left;
+}
