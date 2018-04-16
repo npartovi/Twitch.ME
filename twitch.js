@@ -1,5 +1,23 @@
 const gamesArray = [];
 
+
+function summaryTest(){
+	$.ajax({
+		url: "https://api.twitch.tv/kraken/streams/summary",
+		method: "GET",
+		headers: {
+			'Client-ID': 'j04u3arfwaaxamhkczfl48egoeh3ncn'
+		},
+		success: function(data){
+			console.log(data)
+		}
+
+	})
+}
+
+
+
+
 function loadTopLine(){
 
 	$.ajax({
@@ -44,7 +62,6 @@ function bubbleChart(){
 		success: function(data){
 
 			let dataPoints = data.top;
-			console.log(dataPoints);
 
 			let graphSelection = d3.select(".graph")
 			let width = 960;
@@ -112,3 +129,4 @@ function bubbleChart(){
 
 loadTopLine();
 bubbleChart();
+summaryTest();
