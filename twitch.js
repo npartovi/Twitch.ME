@@ -44,11 +44,11 @@ function bubbleChart(){
 		success: function(data){
 
 			let dataPoints = data.top;
-			console.log(dataPoints)
+			console.log(dataPoints);
 
 			let graphSelection = d3.select(".graph")
-			let width = 960
-			let height = 960
+			let width = 960;
+			let height = 960;
 
 			// selects the "graph" div on the html page and appends a svg container
 		    var svgContainer = graphSelection
@@ -59,7 +59,6 @@ function bubbleChart(){
 		                .attr("transform", "translate(0,0)");
 
 		    var radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,500])
-
 		    // formats numbers by rounding down. ex 6.2 => 6
 			var format = d3.format(",d");
 
@@ -73,7 +72,7 @@ function bubbleChart(){
 				.force("y", d3.forceY(height/2).strength(0.05))
 				.force("collide", d3.forceCollide(function(d){
 					return radiusScale(d.viewers / 10) + 1;
-				}))
+				}));
 
 			// chooses color scheme for rendering bubbles. more color schemes available.
 			var color = d3.scaleOrdinal(d3.schemeCategory20c);
@@ -82,26 +81,29 @@ function bubbleChart(){
 			var circles = svgContainer.selectAll(".node")
 			    .data(dataPoints)
 			    .enter().append("circle")
-			    .attr("class", "artist")
+			    .attr("class", "games")
 			    .attr("r", function(d){
-			    	return radiusScale(d.viewers / 10)
+			    	return radiusScale(d.viewers / 10);
 			    })
-			    .attr("fill", "lightblue")
+			    .attr("fill",function(d){
+			    	return color(d.viewers);
+			    })
 			    .on("click", function(d){
-			    	console.log(d)
-			    })
+			    	console.log(d);
+			    });
+
 
 			simulation.nodes(dataPoints)
-				.on('tick', ticked)
+				.on('tick', ticked);
 
 
 			function ticked(){
 				circles
 					.attr("cx", function(d){
-						return d.x
+						return d.x;
 					})
 					.attr("cy", function(d){
-						return d.y
+						return d.y;
 					})
 			}	
 		}
