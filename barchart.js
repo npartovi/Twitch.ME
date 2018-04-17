@@ -59,37 +59,32 @@ $("body").on("click", ".hover", function(){
 			});
 
 		//sort data based on viewers for each channel
-		data = dataset.sort(function(a,b){
+		sortedData = dataset.sort(function(a,b){
 			return d3.descending(a.viewers, b.viewers)
 		});
 
-		let margin = {
-			top: 15,
-			right: 25,
-			bottom: 15,
-			left: 60
-		};
+		console.log(sortedData)
 
+
+		let margin = {top: 20, right: 20, bottom:30, left: 40};
 		let width = 960 - margin.left - margin.right;
-		let height = 500 - margin.top - margin-bottom;
+		let height = 500 - margin.top - margin.bottom;
 
-		let svg = d3.select(".chart")
-				    .append("svg")
-				    .attr("width", width + margin.left + margin.right)
-				    .attr("height", height + margin.top + margin.bottom)
-				    .append("g")
-				    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		let y = d3.scaleBand()
+					.range([height, 0])
+					.padding(0.1);
 
-		let x = 
+		let x = d3.scaleLinear()
+				.range([0, width])
 
 
 
 
 
 
-		console.log(data)
+		
 
-
+				  
 
 
 
@@ -100,15 +95,6 @@ $("body").on("click", ".hover", function(){
 
 
 
-
-
-
-
-
-		// //Channel name var to join
-		// var channel = d => d.channel.name;
-
-		// console.log(channel)
 
 
 		}
@@ -117,18 +103,6 @@ $("body").on("click", ".hover", function(){
 
 }
 
-// var width = 600;
-// var height = 545;
-// var padding = 120;
-// var paddinglight = 0;
-
-
-// //Create SVG element
-
-// var svg = d3.select(".chart")
-// 			.append("svg")
-// 			.attr("width", width)
-// 			.attr("height", height);
 
 StreamerBarchart()
 loadTableData()
