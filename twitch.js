@@ -33,8 +33,7 @@ function loadBubbleChart(){
 			let width = 1200;
 			let height = 1200;
 
-
-
+			let color = d3.scaleOrdinal(d3.schemeCategory10);
 
 			// selects the "graph" div on the html page and appends a svg container
 		    let svgContainer = graphSelection
@@ -77,11 +76,6 @@ function loadBubbleChart(){
 				.force("x", forceXCombine )
 				.force("y", forceY )
 				.force("collide", forceCollide)
-				
-
-			// chooses color scheme for rendering bubbles. more color schemes available.
-			let color = d3.scaleOrdinal(d3.schemeCategory10);
-
 
 			let circles = svgContainer.selectAll(".node")
 			    .data(dataPoints)
@@ -96,6 +90,27 @@ function loadBubbleChart(){
 			    .on("click", function(d){
 			    	console.log(d);
 			    })
+			    .on("mouseenter", function(d){
+			    	d3.selectAll("circle").style('opacity', 0.3);
+			    	let mouseNode = d3.select(this)
+			    	mouseNode.style('opacity', 1)
+			    	mouseNode.transition().duration(200).delay(100).attr('r', 200);
+			    	mouseNode.style('stroke-width', 5)
+			    	d3.selectAll("text").attr("visibility", "hidden")
+						setTimeout(function(){if(mouseNode.style("opacity") == 1){
+							display_data(d, selectedNode);
+						}}, 200)
+
+			    })
+			    .on('mouseleave', function(d){
+						d3.select(this).transition().duration(200).delay(0).attr('r', function(d){
+							return radiusScale(d.viewers / 10);
+						});
+						d3.select(this).style('stroke-width', 1);
+						d3.selectAll("circle").style('opacity', 0.95);
+						d3.selectAll("text").attr("visibility","visible");
+						
+					});
 
 
 			d3.select("#decade").on("click", function(){
@@ -131,10 +146,7 @@ function loadBubbleChart(){
 						.attr("y", function(d, i, nodes){
 							 return 13 + (i - nodes.length / 2 - 0.5) * 10;
 						})
-
-
 					.text(String)
-
 				});
 
 			simulation.nodes(dataPoints)
