@@ -2,16 +2,14 @@ body {
 	background: #4b377c;
 }
 
-.container {
-    margin: 0 auto;
-    width: 1700px;
-    color: white;
-}
 
-
-.inner-container {
+/*.inner-container {
 	display: flex;
 	justify-content: space-between;
+}*/
+
+.inner-container {
+    display: flex;
 }
 
 th, td {

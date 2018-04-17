@@ -16,39 +16,6 @@ function loadSummaryTest(){
 }
 
 
-function loadTableData(){
-
-	$.ajax({
-		type: 'GET',
-		url: 'https://api.twitch.tv/kraken/games/top?limit=30',
-		headers: {
-			'Client-ID': 'j04u3arfwaaxamhkczfl48egoeh3ncn'
-		},
-		success: function(data) {
-		
-		gamesArray.push(data.top);
-		const gamesList = data.top;
-
-		let html = '<tr class="table-header">' +
-					'<td>Game</td>' +
-					'<td>Popularity</td>' +
-					'<td>Viewers</td>' +
-					'<td># of Channels</td></tr>';
-
-		gamesList.forEach((d) => {
-			html += '<tr class="table-row-game-data"><td class="table-game-name">' + d.game.name + '<td>' +
-					'<td class="table-game.popularity">' + d.game.popularity + '<td>' + 
-					'<td class="table-total-viewers">' + d.viewers + '</td>' +
-					'<td class="table-total-channels">' + d.channels + '</td>' +
-					'<tr>'
-		});
-
-		$('.table').html(html);
-		}
-	});
-}
-
-
 function loadBubbleChart(){
 
 	$.ajax({
@@ -63,8 +30,8 @@ function loadBubbleChart(){
 			console.log(dataPoints)
 
 			let graphSelection = d3.select(".graph")
-			let width = 960;
-			let height = 960;
+			let width = 1200;
+			let height = 1200;
 
 
 
@@ -78,7 +45,7 @@ function loadBubbleChart(){
 		                .attr("transform", "translate(0,0)");
 
 
-		    let radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,900])
+		    let radiusScale = d3.scaleSqrt().domain([1,300000]).range([10,800])
 		    // formats numbers by rounding down. ex 6.2 => 6
 			let format = d3.format(",d");
 
@@ -161,9 +128,11 @@ function loadBubbleChart(){
 						.append("tspan")
 						.attr("text-anchor", "middle")
 						.attr("x", 0)
-						.attr("dy", function(d, i){
-							return "1.2em"
+						.attr("y", function(d, i, nodes){
+							 return 13 + (i - nodes.length / 2 - 0.5) * 10;
 						})
+
+
 					.text(String)
 
 				});
@@ -189,6 +158,43 @@ function loadBubbleChart(){
 	});
 }
 
-loadTableData();
+
 loadBubbleChart();
 loadSummaryTest();
+
+
+
+
+
+// var node = svg.selectAll(“.node”)
+//    .data(pack(root).leaves())
+//    .enter().append(“g”)
+//      .attr(“class”, “node”)
+//      .attr(“transform”, function(d) { return “translate(” + d.x + “,” + d.y + “)”; })
+//      .on(“click”, function(d) {
+//          alert(“on click” + d.className);
+//      });
+
+//  node.append(“circle”)
+//      .attr(“id”, function(d) { return d.id; })
+//      .attr(“r”, function(d) { return d.r; })
+//      .style(“fill”, function(d) { return color(Math.random()); });
+
+//  node.append(“clipPath”)
+//      .attr(“id”, function(d) { return “clip-” + d.id; })
+//    .append(“use”)
+//      .attr(“xlink:href”, function(d) { return “#” + d.id; });
+
+//  node.append(“text”)
+//      .attr(“clip-path”, function(d) { return “url(#clip-” + d.id + “)”; })
+//    .selectAll(“tspan”)
+//    .data(function(d) { return d.class.split(/(?=[A-Z][^A-Z])/g); })
+//    .enter().append(“tspan”)
+//      .attr(“x”, 0)
+//      .attr(“y”, function(d, i, nodes) { return 13 + (i - nodes.length / 2 - 0.5) * 10; })
+//      .text(function(d) { return d; });
+
+//  node.append(“title”)
+//      .text(function(d) { return d.id + “\n” + format(d.value); });
+
+// });
