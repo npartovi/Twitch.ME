@@ -16,14 +16,14 @@ function loadTableData(){
 		const gamesList = data.top;
 
 		let html = '<tr class="table-header">' +
-					'<td>Game</td>' +
-					'<td>Popularity</td>' +
-					'<td>Viewers</td>' +
-					'<td># of Channels</td></tr>';
+					'<th>Game</th>' +
+					'<th>Popularity</th>' +
+					'<th>Viewers</th>' +
+					'<th># of Channels</th></tr>';
 
 		gamesList.forEach((d) => {
-			html += '<tr class="hover small"><td class="table-game-name">' + d.game.name + '<td>' +
-					'<td class="table-game-popularity">' + d.game.popularity + '<td>' + 
+			html += '<tr class="hover small"><td class="table-game-name">' + d.game.name + '</td>' +
+					'<td class="table-game-popularity">' + d.game.popularity + '</td>' + 
 					'<td class="table-total-viewers">' + d.viewers + '</td>' +
 					'<td class="table-total-channels">' + d.channels + '</td>' +
 					'<tr>'
@@ -42,6 +42,7 @@ function StreamerBarchart(){
 
 $("body").on("click", ".hover", function(){
 	var gamename = $(this).find('td:first-of-type').html();
+	let dataset = [];
 
 	// ajax call that gets the list of streamers for each game
 	$.ajax({
@@ -51,8 +52,6 @@ $("body").on("click", ".hover", function(){
 			'Client-ID': 'j04u3arfwaaxamhkczfl48egoeh3ncn'
 		},
 		success: function(data){
-
-		let dataset = [];
 
 		data.streams.forEach(function(d) {
 				dataset.push(d);
@@ -65,7 +64,7 @@ $("body").on("click", ".hover", function(){
 
 		console.log(sortedData)
 
-		let margin = {top: 20, right: 20, bottom:30, left: 90};
+		let margin = {top: 20, right: 20, bottom:30, left: 100};
 		let width = 900 - margin.left - margin.right;
 		let height = 800 - margin.top - margin.bottom;
 
@@ -77,6 +76,7 @@ $("body").on("click", ".hover", function(){
 				.range([0, width])
 	
 		let svg = d3.select(".chart")
+					.html("")
 					.append("svg")
 					.attr("width", width + margin.left + margin.right)
     				.attr("height", height + margin.top + margin.bottom)
@@ -99,7 +99,7 @@ $("body").on("click", ".hover", function(){
 		   .attr("width", function(d) {return x(d.viewers); } )
 		   .attr("y", function(d) { return y(d.channel.display_name); })
 		   .attr("height", y.bandwidth())
-		   .attr("fill",function(d){
+		   .attr("fill", function(d){
 			    return color(d.viewers);
 			})
 
