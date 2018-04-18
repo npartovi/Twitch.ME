@@ -1,5 +1,3 @@
-const gamesArray = [];
-
 
 function loadSummaryTest(){
 	$.ajax({
@@ -27,8 +25,6 @@ function loadBubbleChart(){
 		success: function(data){
 
 			let dataPoints = data.top;
-			console.log(dataPoints)
-
 			let graphSelection = d3.select(".graph")
 			let width = 1200;
 			let height = 1200;
@@ -97,9 +93,6 @@ function loadBubbleChart(){
 			    	mouseNode.transition().duration(200).delay(100).attr('r', 200);
 			    	mouseNode.style('stroke-width', 5)
 			    	d3.selectAll("text").attr("visibility", "hidden")
-						setTimeout(function(){if(mouseNode.style("opacity") == 1){
-							display_data(d, selectedNode);
-						}}, 200)
 
 			    })
 			    .on('mouseleave', function(d){

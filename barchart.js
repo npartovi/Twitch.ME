@@ -1,6 +1,4 @@
-
-
-
+const gamesArray = [];
 
 function loadTableData(){
 
@@ -12,7 +10,8 @@ function loadTableData(){
 		},
 		success: function(data) {
 		
-		gamesArray.push(data.top);
+		let newArray = data.top
+		gamesArray.push(newArray);
 		const gamesList = data.top;
 
 		let html = '<tr class="table-header">' +
@@ -44,6 +43,30 @@ $("body").on("click", ".hover", function(){
 	var gamename = $(this).find('td:first-of-type').html();
 	let dataset = [];
 
+	$.ajax({
+		url: 'https://api.twitch.tv/kraken/search/games?q='+gamename+'&type=suggest',
+		type: 'GET',
+		headers: {
+			"Client-ID": 'j04u3arfwaaxamhkczfl48egoeh3ncn'
+		},
+		success: function(data){
+			var html = "";
+			var html2 = "";
+			// Need to loop through gamearray until I match on gamename -- then filter in total viewers + total streamers
+			for (var i=0; i < gamesArray[0].length; i++) {
+				if (gamesArray[0][i].game.name === gamename)
+					html2 = '<p class="gametitle">Game: '+gamename+'</p>'
+							+'<h4>Watching: ' + gamesArray[0][i].viewers +'</h4>'
+							+'<h4>Rank: ' + (i+1) + '</h4>'
+							+'<h4>Streaming: '+ gamesArray[0][i].channels +'</h4>';
+			}
+			var pic = data.games[0].box.medium;
+			html = '<img class="img-circle" src="'+pic+'">';
+			$(".header").html(html);
+			$(".gamename").html(html2);
+		}
+	});
+
 	// ajax call that gets the list of streamers for each game
 	$.ajax({
 		url: 'https://api.twitch.tv/kraken/streams?limit=20&game='+gamename,
@@ -62,11 +85,9 @@ $("body").on("click", ".hover", function(){
 			return d3.ascending(a.viewers, b.viewers)
 		});
 
-		console.log(sortedData)
-
-		let margin = {top: 20, right: 20, bottom:30, left: 100};
-		let width = 900 - margin.left - margin.right;
-		let height = 800 - margin.top - margin.bottom;
+		let margin = {top: 5, right: 20, bottom:30, left: 100};
+		let width = 600 - margin.left - margin.right;
+		let height = 700 - margin.top - margin.bottom;
 
 		let y = d3.scaleBand()
 					.range([height, 0])
@@ -91,6 +112,10 @@ $("body").on("click", ".hover", function(){
 
 		let color = d3.scaleOrdinal(d3.schemeCategory10);
 
+		var div = d3.select("body").append("div")
+		    .attr("class", "tooltip")
+		    .style("opacity", 0);
+
 
 		svg.selectAll(".bar")
 		   .data(sortedData)
@@ -102,6 +127,38 @@ $("body").on("click", ".hover", function(){
 		   .attr("fill", function(d){
 			    return color(d.viewers);
 			})
+		   .on("mouseover", function(d) {
+		       div.transition()
+		         .duration(200)
+		         .style("opacity", .9);
+		       div.html("<ul class='tooltip-list'><li><span>Viewers:</span> " + d.viewers + "</li><li><span>Channel:</span> " + d.channel.name + "</li><li><span>Status: </span>" + d.stream_type + "</li></ul>")
+		         .style("left", (d3.event.pageX) + "px")
+		         .style("top", (d3.event.pageY - 28) + "px");
+		       })
+		    .on("mouseout", function(d) {
+		        div.transition()
+		        .duration(500)
+		        .style("opacity", 0);
+		    })
+		    .on("click", function(d){
+		    	$(".render-stream").html("")
+		    	let channelName = d.channel.name
+
+		    	let url = `http://player.twitch.tv/?channel=${channelName}`
+		    	console.log(url)
+
+		    	let iframeRender = document.createElement("iframe")
+		    	iframeRender.src = url;
+		    	iframeRender.height = 420;
+		    	iframeRender.width = 640;
+		    	iframeRender.frameborder = 0;
+		    	iframeRender.scrolling = "no";
+		    	iframeRender.allowfullscreen = "no";							
+
+		    	$(".render-stream").append(iframeRender);
+
+
+		    })
 
 
 		// add the x Axis
