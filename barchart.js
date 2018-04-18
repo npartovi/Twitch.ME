@@ -86,8 +86,8 @@ $("body").on("click", ".hover", function(){
 		});
 
 		let margin = {top: 5, right: 20, bottom:30, left: 100};
-		let width = 600 - margin.left - margin.right;
-		let height = 700 - margin.top - margin.bottom;
+		let width = 560 - margin.left - margin.right;
+		let height = 670 - margin.top - margin.bottom;
 
 		let y = d3.scaleBand()
 					.range([height, 0])
@@ -153,7 +153,7 @@ $("body").on("click", ".hover", function(){
 		    	iframeRender.width = 640;
 		    	iframeRender.frameborder = 0;
 		    	iframeRender.scrolling = "no";
-		    	iframeRender.allowfullscreen = "no";							
+		    	iframeRender.allowfullscreen = "yes";							
 
 		    	$(".render-stream").append(iframeRender);
 

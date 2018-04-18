@@ -29,6 +29,8 @@ function loadBubbleChart(){
 			let width = 1200;
 			let height = 1200;
 
+			console.log(data)
+
 			let color = d3.scaleOrdinal(d3.schemeCategory10);
 
 			// selects the "graph" div on the html page and appends a svg container
