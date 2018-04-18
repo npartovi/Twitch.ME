@@ -29,18 +29,17 @@ function loadTableData(){
 		});
 
 		$('.table').html(html);
+		document.getElementsByClassName("hover")[0].click()
 		}
 	});
 }
-
-
-
 
 
 function StreamerBarchart(){
 
 $("body").on("click", ".hover", function(){
 	var gamename = $(this).find('td:first-of-type').html();
+	console.log(gamename)
 	let dataset = [];
 
 	$.ajax({
@@ -155,6 +154,7 @@ $("body").on("click", ".hover", function(){
 		    	iframeRender.scrolling = "no";
 		    	iframeRender.allowfullscreen = "yes";							
 
+		    	$(".render-stream").append(`<h1>Now Streaming: ${channelName}</h1>`)
 		    	$(".render-stream").append(iframeRender);
 
 
@@ -171,10 +171,13 @@ $("body").on("click", ".hover", function(){
 		    .call(d3.axisLeft(y));
 		}
 	});
+
 });
 
 }
 
 
+
 StreamerBarchart()
 loadTableData()
+

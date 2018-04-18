@@ -166,5 +166,5 @@ function loadBubbleChart(){
 }
 
 
-loadBubbleChart();
+// loadBubbleChart();
 loadSummaryTest();
