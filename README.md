@@ -1,9 +1,9 @@
-# Twitch.tv-D3-Analysis(name pending)
+# Twitch.ME
 
 
 ## Background and Overview
 
-Twitch.tv-D3-Analysis(name pending) will be a interactive analysis of Twitch.tv.
+Twitch.ME will be a interactive analysis of Twitch.tv.
 
 Users will be able to see visual data from twitch ranging from numbers of viewers, popularity, most
 popular streamer and whatever else the twitch API will let me grab. All data will be pulled from the Twitch API using ajax calls for the most concurrent data possible.
@@ -11,11 +11,10 @@ popular streamer and whatever else the twitch API will let me grab. All data wil
 ## Functionality & MVP
 
 - [ ] Display table of top 30 games(# of games can be changes)
-- [ ] Display D3 bubble chart of those 30 games
-- [ ] Hover over effects for D3 shapes displaying information
-- [ ] Display D3 Barchart, possibly might replace with another chart
-- [ ] Clicking on anygame from the table will load a summary of that particular game only
-
+- [ ] Display D3 Barchart of top 20 streamers for each game 
+- [ ] Allows users to click on Top 20 streamer barchart to load stream for that specific streamer
+- [ ] Hover over effects for D3 barchart displaying information
+- [ ] D3 bubble chart that will load top 10 trending clips of selected game
 
 ## Wireframes
 
@@ -31,3 +30,4 @@ popular streamer and whatever else the twitch API will let me grab. All data wil
 ## Implementation Timeline
 
 ## Bonus features
+

@@ -116,7 +116,7 @@ $("body").on("click", ".hover", function(){
 		    .style("opacity", 0);
 
 
-		svg.selectAll(".bar")
+		bar = svg.selectAll(".bar")
 		   .data(sortedData)
 		   .enter().append("rect")
 		   .attr("class", "bar")
@@ -130,7 +130,7 @@ $("body").on("click", ".hover", function(){
 		       div.transition()
 		         .duration(200)
 		         .style("opacity", .9);
-		       div.html("<ul class='tooltip-list'><li><span>Viewers:</span> " + d.viewers + "</li><li><span>Channel:</span> " + d.channel.name + "</li><li><span>Status: </span>" + d.stream_type + "</li></ul>")
+		       div.html("<ul class='tooltip-list'><li><span>Viewers:</span> " + d.viewers + "</li><li><span>Channel:</span> " + d.channel.name + "</li><li><span>Click To View Stream </span></li></ul>")
 		         .style("left", (d3.event.pageX) + "px")
 		         .style("top", (d3.event.pageY - 28) + "px");
 		       })
@@ -154,12 +154,11 @@ $("body").on("click", ".hover", function(){
 		    	iframeRender.scrolling = "no";
 		    	iframeRender.allowfullscreen = "yes";							
 
-		    	$(".render-stream").append(`<h1>Now Streaming: ${channelName}</h1>`)
+		    	$(".render-stream").append(`<h1><i class="fas fa-circle"></i>Now Streaming: ${channelName}</h1>`)
 		    	$(".render-stream").append(iframeRender);
 
 
 		    })
-
 
 		// add the x Axis
 		svg.append("g")
