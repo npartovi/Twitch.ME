@@ -21,12 +21,22 @@
 				<li><a href="https://www.linkedin.com/in/nima-partovi-8b044411/"><i class="fab fa-linkedin fa-2x"></i></a></li>
 			</ul>
 		</nav>
+	<div class="stream-container">
+		<div class="render-stream"></div>
+	</div>
+
+
+
+
 	<div class="inner-container">
-		<!-- <div id="myModal" class="modal"></div>
+
+		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<p>Some text in the Modal..</p>
-			</div> -->
+				<h1> Twitch.ME</h1>
+				<p>Twitch.ME is a D3 based analytical website. The website is a twitch viewing dashboard based on data that is being pulled from the Twitch APIS. The Top 30 game table data is always live. You can also view The top 20 streamers for each game as well as watch those users stream by clicking on the barchart of that respective streamer.</p>
+			</div>
+		</div>
 
 
 		<div class="table-container">
@@ -35,7 +45,7 @@
 		</div>
 
 		<div class="chart-container">
-			<h1>Top 20 Streamers</h1>
+			<div class="stream-header"></div>
 			<div class="chart"></div>
 		</div>
 
@@ -44,7 +54,6 @@
 				<div class="header"></div>
 				<div class="gamename"></div>
 			</div>
-			<div class="render-stream"></div>
 		</div>
 	</div>
 
@@ -53,9 +62,6 @@
 				<!-- <button id="decade">Over 10000</button>
 				<button id="combine">Combine</button> -->
 		</div>
-
-	<div class="word-cloud">
-	</div>
 </div>
 
 
@@ -63,6 +69,5 @@
 <script type="text/javascript" stc="d3.layout.cloud.js"></script>
 <script type="text/javascript" src="barchart.js"></script>
 <script type="text/javascript" src="aboutme_modal.js"></script>
-<script type="text/javascript" src="cloud_word.js"></script>
 </body>
 </html>
