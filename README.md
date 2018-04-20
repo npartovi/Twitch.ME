@@ -3,7 +3,7 @@
 
 ## Background and Overview
 
-![Twitch.ME](https://npartovi.github.io/Twitch.ME/)
+[Twitch.ME](https://npartovi.github.io/Twitch.ME/)
 
 Twitch.ME is a Twitch dashboard featuring a D3 chart analysis of data pulled from the Twitch API's
 
@@ -27,8 +27,9 @@ popular streamer and whatever else the twitch API will let me grab. All data wil
 
 - D3 library to display visuals from the dataset
 - Jquery AJAX API calls for twitch dataset
-
-## Implementation Timeline
+- HTML, CSS, javascript for the frontend.
 
 ## Bonus features
+- [ ] Feature live twitter feed based on each streamer to be displayed next to their stream
+- [ ] word cloud of most used words in Twitch chat.
 
