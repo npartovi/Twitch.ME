@@ -225,3 +225,16 @@ iframe {
 img.img-circle {
     border: 2px solid white;
 }
+
+
+.container {
+  height:100vh;
+}
+
+footer {
+    margin-top: 150px;
+    padding: 4%;
+    width: 100%;
+    background-color: black;
+    border: 1px solid white;
+}

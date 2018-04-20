@@ -156,6 +156,7 @@ $("body").on("click", ".hover", function(){
 		    	let channelName = d.channel.name
 
 		    	let url = `https://player.twitch.tv/?channel=${channelName}`
+
 		    	console.log(url)
 
 		    	let iframeRender = document.createElement("iframe")

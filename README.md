@@ -3,7 +3,9 @@
 
 ## Background and Overview
 
-Twitch.ME will be a interactive analysis of Twitch.tv.
+![Twitch.ME](https://npartovi.github.io/Twitch.ME/)
+
+Twitch.ME is a Twitch dashboard featuring a D3 chart analysis of data pulled from the Twitch API's
 
 Users will be able to see visual data from twitch ranging from numbers of viewers, popularity, most
 popular streamer and whatever else the twitch API will let me grab. All data will be pulled from the Twitch API using ajax calls for the most concurrent data possible.
@@ -14,7 +16,6 @@ popular streamer and whatever else the twitch API will let me grab. All data wil
 - [ ] Display D3 Barchart of top 20 streamers for each game 
 - [ ] Allows users to click on Top 20 streamer barchart to load stream for that specific streamer
 - [ ] Hover over effects for D3 barchart displaying information
-- [ ] D3 bubble chart that will load top 10 trending clips of selected game
 
 ## Wireframes
 
