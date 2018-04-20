@@ -33,7 +33,10 @@ function loadTableData(){
 					'<tr>'
 		});
 
+
 		$('.table').html(html);
+		// table = document.querySelector(".table")
+		// table.innerHTML(html)
 		document.getElementsByClassName("hover")[0].click()
 		}
 
@@ -152,7 +155,7 @@ $("body").on("click", ".hover", function(){
 		    	$(".render-stream").html("")
 		    	let channelName = d.channel.name
 
-		    	let url = `http://player.twitch.tv/?channel=${channelName}`
+		    	let url = `https://player.twitch.tv/?channel=${channelName}`
 		    	console.log(url)
 
 		    	let iframeRender = document.createElement("iframe")

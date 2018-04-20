@@ -4,11 +4,6 @@ body {
 }
 
 
-/*.inner-container {
-	display: flex;
-	justify-content: space-between;
-}*/
-
 .inner-container {
     display: flex;
     margin-top: 30px;
