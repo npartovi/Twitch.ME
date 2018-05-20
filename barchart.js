@@ -35,8 +35,6 @@ function loadTableData(){
 
 
 		$('.table').html(html);
-		// table = document.querySelector(".table")
-		// table.innerHTML(html)
 		document.getElementsByClassName("hover")[0].click()
 		}
 
@@ -183,13 +181,11 @@ $("body").on("click", ".hover", function(){
 		    .call(d3.axisLeft(y));
 		}
 	});
-
+	
 });
 
 }
 
-
-
-StreamerBarchart()
-loadTableData()
+loadTableData();
+StreamerBarchart();
 
