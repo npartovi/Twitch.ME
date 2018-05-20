@@ -89,7 +89,7 @@ function StreamerBarchart(){
 				});
 
 				let margin = {top: 5, right: 20, bottom:30, left: 100};
-				let width = 570 - margin.left - margin.right;
+				let width = 900 - margin.left - margin.right;
 				let height = 660 - margin.top - margin.bottom;
 
 				let y = d3.scaleBand()
@@ -176,6 +176,7 @@ function StreamerBarchart(){
 
 
 					function loadInitialStream(){
+						$(".render-stream").html("")
 						const topStreamer = sortedData[sortedData.length - 1].channel.name;
 						const url = `https://player.twitch.tv/?channel=${topStreamer}`;
 

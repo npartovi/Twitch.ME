@@ -80,7 +80,9 @@ ul.tooltip-list {
 
 .stream-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 25px;
 }
 
 
@@ -113,15 +115,9 @@ ul.tooltip-list {
 .gamename p, h4 {
     background: black;
     padding: 6px;
-    margin-bottom: 16px;
     border: 2px solid white;
 }
 
-.render-stream {
-    text-align: center;
-    position: relative;
-    top: 15px;
-}
 
 .render-stream h1 {
     color: white;
