@@ -19,7 +19,7 @@ popular streamer and whatever else the twitch API will let me grab. All data wil
 
 ## Wireframes
 
-![](https://i.imgur.com/2Kc2KvV.png)
+![](https://i.imgur.com/74H3mHY.png)
 
 - current prototype of the program
 
