@@ -9,9 +9,13 @@ function loadTableData(){
 	$.ajax({
 		type: 'GET',
 		url: 'https://api.twitch.tv/kraken/games/top?limit=30',
-		headers: {
-			'Client-ID': 'j04u3arfwaaxamhkczfl48egoeh3ncn'
-		},
+		contentType: 'application/json',
+    	dataType: 'json',
+    	headers: {
+      		'Client-ID': '9qfakygopakmgpgkprmkihpjqzbmst',
+      		'Authorization': 'zqyyrm0mbkoh0zepu9vfock253wywy',
+      		'Accept': 'application/vnd.twitchtv.v5+json'
+    	},
 		success: function(data) {
 			
 			let newArray = data.top
@@ -49,9 +53,13 @@ function StreamerBarchart(){
 		$.ajax({
 			url: 'https://api.twitch.tv/kraken/search/games?q='+gamename+'&type=suggest',
 			type: 'GET',
-			headers: {
-				"Client-ID": 'j04u3arfwaaxamhkczfl48egoeh3ncn'
-			},
+			contentType: 'application/json',
+    		dataType: 'json',
+    		headers: {
+      			'Client-ID': '9qfakygopakmgpgkprmkihpjqzbmst',
+      			'Authorization': 'zqyyrm0mbkoh0zepu9vfock253wywy',
+      			'Accept': 'application/vnd.twitchtv.v5+json'
+    		},
 			success: function(data){
 				var html = "";
 				var html2 = "";
@@ -74,9 +82,13 @@ function StreamerBarchart(){
 		$.ajax({
 			url: 'https://api.twitch.tv/kraken/streams?limit=20&game='+gamename,
 			type: 'GET',
-			headers: {
-				'Client-ID': 'j04u3arfwaaxamhkczfl48egoeh3ncn'
-			},
+			contentType: 'application/json',
+    		dataType: 'json',
+    		headers: {
+      			'Client-ID': '9qfakygopakmgpgkprmkihpjqzbmst',
+      			'Authorization': 'zqyyrm0mbkoh0zepu9vfock253wywy',
+      			'Accept': 'application/vnd.twitchtv.v5+json'
+    		},
 			success: function(data){
 
 				data.streams.forEach(function(d) {
@@ -84,7 +96,7 @@ function StreamerBarchart(){
 				});
 
 				//sort data based on viewers for each channel
-				sortedData = dataset.sort(function(a,b){
+				const sortedData = dataset.sort(function(a,b){
 					return d3.ascending(a.viewers, b.viewers)
 				});
 
